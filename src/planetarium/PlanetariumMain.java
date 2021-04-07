@@ -6,6 +6,7 @@ import planetarium.contents.corpicelesti.Stella;
 import planetarium.contents.corpicelesti.operazioni.Operazioni;
 import planetarium.contents.system.GestioneSistema;
 import planetarium.contents.system.posizione.Posizione;
+import planetarium.input.GestioneInput;
 
 /**
  * @author TTT
@@ -14,10 +15,10 @@ import planetarium.contents.system.posizione.Posizione;
 public class PlanetariumMain {
 
     public static void main(String[] args){
-
+        GestioneInput.leggiDouble();
 
         //commento di prova guygf
-
+/*
         Luna l = new Luna("luna 1", 5677984.54, new Posizione(3,6));
         Luna l1 = new Luna( "luna 2", 5677984.54, new Posizione(3,6));
         Luna l2 = new Luna("luna 3", 5677984.54, new Posizione(3,6));
@@ -38,7 +39,7 @@ public class PlanetariumMain {
 
         l.distruggi();
 
-        p.stampaOrbita();
+        p.stampaOrbita();*/
 
     }
 }

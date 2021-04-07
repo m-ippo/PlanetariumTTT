@@ -16,7 +16,7 @@ public class PlanetariumMain {
     public static void main(String[] args){
 
 
-        //commento di prova
+        //commento di prova guygf
 
         Luna l = new Luna("luna 1", 5677984.54, new Posizione(3,6));
         Luna l1 = new Luna( "luna 2", 5677984.54, new Posizione(3,6));

@@ -15,10 +15,15 @@ import planetarium.input.GestioneInput;
 public class PlanetariumMain {
 
     public static void main(String[] args){
-        GestioneInput.leggiDouble();
+        GestioneInput.leggiDouble("inserisci Massa:");
+        GestioneInput.leggiInteger("inserisci Operazione:");
+        GestioneInput.leggiString("inserisci Nome:");
+        GestioneInput.leggiBoolean("Domanda:");
+        GestioneInput.leggiLong("inserisci Codice:");
 
         //commento di prova guygf
-/*
+
+        /*
         Luna l = new Luna("luna 1", 5677984.54, new Posizione(3,6));
         Luna l1 = new Luna( "luna 2", 5677984.54, new Posizione(3,6));
         Luna l2 = new Luna("luna 3", 5677984.54, new Posizione(3,6));

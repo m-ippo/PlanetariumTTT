@@ -27,3 +27,8 @@ build/*
 dist/*
 nbproject/*
 /bin/
+
+#Files per Intellij
+.idea/*
+out/*
+*.iml

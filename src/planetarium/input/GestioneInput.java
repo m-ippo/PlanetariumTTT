@@ -19,12 +19,13 @@ public class GestioneInput {
                 corretto = true;
             } catch (InputMismatchException ime) {
                 input.nextLine();
-                System.err.print("Errore! "+ messaggio);
+                System.err.print("Errore! " + messaggio);
             }
         }
         input.nextLine();
         return valoreLetto;
     }
+
     public static Integer leggiInteger(String messaggio) {
         Integer valoreLetto = null;
         boolean corretto = false;
@@ -36,7 +37,7 @@ public class GestioneInput {
                 corretto = true;
             } catch (InputMismatchException ime) {
                 input.nextLine();
-                System.err.print("Errore! "+ messaggio);
+                System.err.print("Errore! " + messaggio);
             }
         }
         input.nextLine();
@@ -54,7 +55,7 @@ public class GestioneInput {
                 corretto = true;
             } catch (InputMismatchException ime) {
                 input.nextLine();
-                System.err.print("Errore! "+messaggio);
+                System.err.print("Errore! " + messaggio);
             }
         }
         input.nextLine();
@@ -69,10 +70,10 @@ public class GestioneInput {
         while (!corretto) {
 
             valoreLetto = input.nextLine();
-            if(valoreLetto!=null && valoreLetto.trim()!=""){
-                corretto=true;
-            }else{
-                System.err.print("Errore! "+messaggio);
+            if (valoreLetto != null && valoreLetto.trim() != "") {
+                corretto = true;
+            } else {
+                System.err.print("Errore! " + messaggio);
             }
         }
 
@@ -85,15 +86,14 @@ public class GestioneInput {
         System.out.print(messaggio + "[s/n]");
         while (!corretto) {
             String temp = input.nextLine();
-            if(Objects.equals(temp, "s")){
-                corretto=true;
-                valoreLetto=true;
-            }else if (Objects.equals(temp, "n")){
-                valoreLetto=false;
-                corretto=true;
-            }
-            else{
-                System.err.print("Errore! "+messaggio + "[s/n]");
+            if (Objects.equals(temp, "s")) {
+                corretto = true;
+                valoreLetto = true;
+            } else if (Objects.equals(temp, "n")) {
+                valoreLetto = false;
+                corretto = true;
+            } else {
+                System.err.print("Errore! " + messaggio + "[s/n]");
             }
         }
 

@@ -3,6 +3,7 @@ package planetarium.input;
 import planetarium.contents.corpicelesti.Luna;
 import planetarium.contents.corpicelesti.Pianeta;
 import planetarium.contents.corpicelesti.Stella;
+import planetarium.contents.system.GestioneSistema;
 import planetarium.contents.system.posizione.Posizione;
 
 public class InputOggetti {
@@ -32,6 +33,14 @@ public class InputOggetti {
         Double massa = GestioneInput.leggiDouble("Inserisci la Massa: ");
         Posizione posizione = leggiPosizione();
         return Stella.generateIstance(nome, massa, posizione);
+    }
+    public static GestioneSistema leggiGestioneSistema() {
+        String nomeSistema = GestioneInput.leggiString("Inserire nome del Sistema: ");
+        Boolean sn = GestioneInput.leggiBoolean("Vuoi inserire una nuova stella? (altrimenti è generata automaticamente) ");
+        if (sn){
+            leggiStella();
+        }
+        return GestioneSistema.getIstance(nomeSistema);
     }
 
 }

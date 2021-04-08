@@ -7,6 +7,8 @@ import planetarium.contents.corpicelesti.operazioni.Operazioni;
 import planetarium.contents.system.GestioneSistema;
 import planetarium.contents.system.posizione.Posizione;
 import planetarium.input.GestioneInput;
+import planetarium.input.InputOggetti;
+import planetarium.input.menu.Menu;
 
 /**
  * @author TTT
@@ -15,12 +17,8 @@ import planetarium.input.GestioneInput;
 public class PlanetariumMain {
 
     public static void main(String[] args){
-        GestioneInput.leggiDouble("inserisci Massa:");
-        GestioneInput.leggiInteger("inserisci Operazione:");
-        GestioneInput.leggiString("inserisci Nome:");
-        GestioneInput.leggiBoolean("Domanda:");
-        GestioneInput.leggiLong("inserisci Codice:");
-
+        Menu nuovoMenu = new Menu();
+        nuovoMenu.stampaMenu();
         //commento di prova guygf
 
         /*

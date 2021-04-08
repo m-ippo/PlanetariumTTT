@@ -7,6 +7,7 @@ package planetarium.contents.system.questionable;
 
 import java.util.LinkedList;
 import planetarium.contents.corpicelesti.Stella;
+import planetarium.contents.corpicelesti.enums.TipiCorpiCelesti;
 import planetarium.contents.corpicelesti.interfaces.CorpoCeleste;
 import planetarium.contents.system.posizione.Posizione;
 
@@ -105,7 +106,7 @@ public class Calcolatore {
      * @return La distanza del corpo celeste dal padre, altrimenti 0.
      */
     public static double calcolaRaggioOrbita(CorpoCeleste ic) {
-        if (ic.getPadre()!= null) {
+        if (ic.getPadre() != null) {
             CorpoCeleste parent = ic.getPadre();
             return Calcolatore.calcolaDistanza(ic, parent);
         }
@@ -121,8 +122,44 @@ public class Calcolatore {
      * @return {@code true} nel caso i due corpi potrebbero collidere.
      */
     public static boolean puoCollidere(CorpoCeleste ic1, CorpoCeleste ic2) {
-        Stella main = Stella.getIstance();
-        return Math.abs(Calcolatore.calcolaDistanza(main, ic1) - Calcolatore.calcolaDistanza(main, ic2)) < THRESHOLD;
+        if (ic1 != null && ic2 != null) {
+            if (ic1 == ic2 || ic2.getPadre() == ic1 || ic1.getPadre() == ic2) {
+                return false;
+            } else if (ic1.getPadre() == ic2.getPadre()) {
+                return Math.abs(Calcolatore.calcolaDistanza(ic1.getPadre(), ic1) - Calcolatore.calcolaDistanza(ic2.getPadre(), ic2)) < THRESHOLD;
+            } else {
+                Stella main = Stella.getIstance();
+                double d1_min;
+                double d2_min;
+                double d1_max;
+                double d2_max;
+                if (ic1.getTipo() == TipiCorpiCelesti.LUNA /*|| ic1.getTipo() == TipiCorpiCelesti.MORTE_NERA*/) {
+                    double p_t_s = Calcolatore.calcolaDistanza(main, ic1.getPadre());
+                    double m_t_p = Calcolatore.calcolaDistanza(ic1, ic1.getPadre());
+                    d1_min = Math.abs(p_t_s - m_t_p);
+                    d1_max = Math.abs(p_t_s + m_t_p);
+                } else {
+                    d1_max = d1_min = Math.abs(Calcolatore.calcolaDistanza(main, ic1));
+                }
+                if (ic2.getTipo() == TipiCorpiCelesti.LUNA /*|| ic2.getTipo() == TipiCorpiCelesti.MORTE_NERA*/) {
+                    double p_t_s = Calcolatore.calcolaDistanza(main, ic2.getPadre());
+                    double m_t_p = Calcolatore.calcolaDistanza(ic2, ic2.getPadre());
+                    d2_min = Math.abs(p_t_s - m_t_p);
+                    d2_max = Math.abs(p_t_s + m_t_p);
+                } else {
+                    d2_max = d2_min = Math.abs(Calcolatore.calcolaDistanza(main, ic2));
+                }
+
+                if (d2_min < d1_max && (d2_max < d1_min || d1_min < d2_max)) {
+                    return (d1_min - d2_max) < 0;
+                } else if (d1_min < d2_max && (d1_max < d2_min || d2_min < d1_max)) {
+                    return (d2_min - d1_max) < 0;
+                }
+
+                return Math.abs(d1_min - d2_min) < THRESHOLD;
+            }
+        }
+        return false;
     }
 
 }

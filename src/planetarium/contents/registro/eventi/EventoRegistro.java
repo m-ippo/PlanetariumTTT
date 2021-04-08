@@ -71,7 +71,7 @@ public final class EventoRegistro {
      */
     public void elementRemoved(ElementoRegistrabile re, Registro r) {
         if (r != null && r.onCall()) {
-            listeners.forEach(l -> l.onElementoRegistrato(re));
+            listeners.forEach(l -> l.onElementoRimosso(re));
         }
     }
 }

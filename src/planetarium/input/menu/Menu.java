@@ -24,46 +24,46 @@ public class Menu {
         menu.add(new Coppia<>("Esci", () -> {
             System.exit(0);
         }));
-        menu.add(new Coppia<>("Crea il sistema ", () -> {
-            GestioneSistema lgs = InputOggetti.leggiGestioneSistema();
-            if (lgs!=null){
-                aggiungiOpzioniBase();
-            }
-
-        }));
-
-
+        if (GestioneSistema.getIstance() != null) {
+            aggiungiOpzioniBase();
+        } else {
+            menu.add(new Coppia<>("Crea il sistema ", () -> {
+                GestioneSistema lgs = InputOggetti.leggiGestioneSistema();
+                if (lgs != null) {
+                    aggiungiOpzioniBase();
+                }
+            }));
+        }
     }
 
-    private void aggiungiOpzioniBase(){
+    private void aggiungiOpzioniBase() {
         menu.add(new Coppia<>("Inserisci un corpo celeste", () -> {
             CorpoCeleste cc = InputOggetti.leggiCorpoCeleste();
             if (cc != null) {
-                Formattazione.printOut("Corpo registrato correttamente ",true,false);
+                Formattazione.printOut("Corpo registrato correttamente ", true, false);
             } else {
-                Formattazione.printOut("Errore nella registrazione ",true,true);
+                Formattazione.printOut("Errore nella registrazione ", true, true);
             }
         }));
-        menu.add(new Coppia<>("Rimuovi corpo celeste",()->{
+        menu.add(new Coppia<>("Rimuovi corpo celeste", () -> {
             CorpoCeleste rimuovi = InputOggetti.ricercaCorpoCeleste();
-            if (rimuovi!=null){
+            if (rimuovi != null) {
                 Boolean risposta = GestioneInput.leggiBoolean("Sei sicuro di volerlo eliminare? ");
-                if (risposta){
+                if (risposta) {
                     rimuovi.distruggi();
-                    Formattazione.printOut(rimuovi.getNome()+" eliminato correttamente! ",true,false);
+                    Formattazione.printOut(rimuovi.getNome() + " eliminato correttamente! ", true, false);
                 }
             }
         }));
 
-        menu.add(new Coppia<>("Mostra luna di un pianeta ",()->{
+        menu.add(new Coppia<>("Mostra luna di un pianeta ", () -> {
             InputOggetti.stampaLune();
         }));
     }
 
-
     public void stampaMenu() {
         for (int i = 0; i < menu.size(); i++) {
-            Formattazione.printOut("[" + (i + 1) + "] " + menu.get(i).getChiave(),true,false);
+            Formattazione.printOut("[" + (i + 1) + "] " + menu.get(i).getChiave(), true, false);
         }
         Formattazione.incrementaIndentazioni();
         int operazioneScelta;

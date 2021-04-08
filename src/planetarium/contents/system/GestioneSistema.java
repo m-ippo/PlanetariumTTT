@@ -3,6 +3,7 @@ package planetarium.contents.system;
 import planetarium.contents.corpicelesti.Luna;
 import planetarium.contents.corpicelesti.Pianeta;
 import planetarium.contents.corpicelesti.Stella;
+import planetarium.contents.corpicelesti.enums.TipiCorpiCelesti;
 import planetarium.contents.corpicelesti.interfaces.CorpoCeleste;
 import planetarium.contents.registro.abstracts.ElementoRegistrabile;
 import planetarium.contents.registro.eventi.EventoRegistro;
@@ -29,7 +30,7 @@ public class GestioneSistema {
     private int moon_counter = 0;
 
     private GestioneSistema(String name) {
-        this.nome = name == null || "".equals(name.trim()) ? NamePicker.getInstance().getName(null) : name;
+        this.nome = name == null || "".equals(name.trim()) ? NamePicker.getIstance().getName(TipiCorpiCelesti.SISTEMA) : name;
         unica_stella = Stella.generateIstance("", (Math.random() + 1) * 1000, new Posizione(0, 0));
         init();
     }
@@ -40,9 +41,11 @@ public class GestioneSistema {
         }
         return istance;
     }
-    public static GestioneSistema getIstance(){
+
+    public static GestioneSistema getIstance() {
         return istance;
     }
+
     public static void destroy() {
         istance = null;
     }

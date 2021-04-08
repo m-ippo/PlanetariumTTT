@@ -1,5 +1,6 @@
 package planetarium.contents.corpicelesti.enums;
 //a
+
 public enum TipiCorpiCelesti {
-    STELLA, PIANETA, LUNA
+    SISTEMA, STELLA, PIANETA, LUNA
 }

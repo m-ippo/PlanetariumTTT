@@ -11,6 +11,7 @@ import planetarium.input.menu.utili.Coppia;
 import planetarium.input.menu.utili.FuturaAzioneMenu;
 
 import java.util.ArrayList;
+import planetarium.input.menu.utili.TreeSystem;
 
 public class Menu {
 
@@ -76,9 +77,16 @@ public class Menu {
             Registro.stampaRegistro();
             Formattazione.decrementaIndentazioni();
         }));
+        menu.add(new Coppia<>("Mostra sistema", () -> {
+            TreeSystem ts = new TreeSystem();
+            ts.printTree();
+        }));
     }
 
     public void stampaMenu() {
+        for (int i = 0; i < 3; i++) {
+            System.out.println();
+        }
         for (int i = 0; i < menu.size(); i++) {
             Formattazione.printOut("[" + (i + 1) + "] " + menu.get(i).getChiave(), true, false);
         }

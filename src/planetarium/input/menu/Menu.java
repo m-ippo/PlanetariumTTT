@@ -26,6 +26,7 @@ public class Menu {
     }
 
     private void init() {
+        Formattazione.printOut("\t\tBENVENUTO NEL PLANETARIUM!", true, false);
         Formattazione.incrementaIndentazioni();
         menu.add(new Coppia<>("Esci", () -> {
             Formattazione.printOut("Arrivederci!!!", true, false);
@@ -90,31 +91,37 @@ public class Menu {
             TreeSystem ts = new TreeSystem();
             ts.printTree();
         }));
-        menu.add(new Coppia<>("Trova corpo celeste",()->{
+        menu.add(new Coppia<>("Trova corpo celeste", () -> {
             InputOggetti.mostraCC();
         }));
-        menu.add(new Coppia<>("Calcola somma delle masse e somma pesata delle posizioni",()->{
+        menu.add(new Coppia<>("Calcola somma delle masse e somma pesata delle posizioni", () -> {
             InputOggetti.calcolaMassa();
         }));
-        menu.add(new Coppia<>("Calcola collisioni ",()->{
+        menu.add(new Coppia<>("Calcola collisioni ", () -> {
             InputOggetti.controllaCollisioni();
         }));
     }
 
     public void stampaMenu() {
-        for (int i = 0; i < 3; i++) {
-            System.out.println();
-        }
+        stampaSpazi(3);
         for (int i = 0; i < menu.size(); i++) {
             Formattazione.printOut("[" + (i + 1) + "] " + menu.get(i).getChiave(), true, false);
         }
+        System.out.println();
         Formattazione.incrementaIndentazioni();
         int operazioneScelta;
         do {
-            operazioneScelta = GestioneInput.leggiInteger("inserisci operazione: ");
+            operazioneScelta = GestioneInput.leggiInteger("Inserisci operazione: ");
         } while (operazioneScelta < 1 || operazioneScelta > menu.size());
         Formattazione.decrementaIndentazioni();
+        stampaSpazi(2);
         eseguiOperazione(operazioneScelta - 1);
+    }
+
+    private void stampaSpazi(int n_spazi) {
+        for (int i = 0; i < n_spazi; i++) {
+            System.out.println();
+        }
     }
 
     private void eseguiOperazione(int operazione) {
@@ -123,6 +130,5 @@ public class Menu {
         esegui_dopo_menu.clear();
         stampaMenu();
     }
-
 
 }

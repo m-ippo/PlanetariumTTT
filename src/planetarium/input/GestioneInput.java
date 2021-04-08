@@ -65,14 +65,15 @@ public class GestioneInput {
         return valoreLetto;
     }
 
-    public static String leggiString(String messaggio, boolean generabile) {
+    // se "auto_generabile" è true allora il programma permette di inserire una stringa vuota
+    public static String leggiString(String messaggio, boolean auto_generabile) {
         String valoreLetto = null;
         boolean corretto = false;
-        Formattazione.printOut(messaggio + (generabile ? " (Premi invio per un nome casuale) " : ""), false, false);
+        Formattazione.printOut(messaggio + (auto_generabile ? " (Premi invio per un nome casuale) " : ""), false, false);
         Formattazione.incrementaIndentazioni();
         while (!corretto) {
             valoreLetto = input.nextLine();
-            if (valoreLetto != null && (generabile ? generabile : !"".equals(valoreLetto.trim()))) {
+            if (valoreLetto != null && (auto_generabile ? auto_generabile : !"".equals(valoreLetto.trim()))) {
                 corretto = true;
             } else {
                 Formattazione.printOut("Errore! " + messaggio, false, true);

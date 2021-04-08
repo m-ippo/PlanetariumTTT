@@ -22,7 +22,7 @@ public abstract class ElementoRegistrabile {
     private String nome_elemento = null;
 
     /**
-     * L'ID è assegnato tramite {@link }. Di default l'ID che viene ritornato è
+     * L'ID è assegnato tramite {@link #registra(long, planetarium.contents.registro.Registro) }. Di default l'ID che viene ritornato è
      * -1, altrimenti se il corpo celeste è stato registrato viene ritornato
      * l'ID relativo.
      *
@@ -37,8 +37,7 @@ public abstract class ElementoRegistrabile {
      * planetario. Un corpo cleste viene registrato quando gli viene assegnato
      * un ID.
      *
-     * @return <code>true</code> se è stato registrato, altrimenti
-     * <code>false</code>
+     * @return {@code true} se è stato registrato, altrimenti {@code false}
      */
     public final boolean isRegistrato() {
         return registrato;
@@ -46,7 +45,7 @@ public abstract class ElementoRegistrabile {
 
     /**
      * Registra il corpo celestiale. Solo la classe {@link Registro} tramite il
-     * metodo {@link Registro#registraElemento} (planetarium.contents.registry.abstracts.RegistrableEntry, java.lang.String)
+     * metodo {@link Registro#registraElemento(planetarium.contents.registro.abstracts.ElementoRegistrabile, java.lang.String)
      * } può registrare l'ID.
      *
      * @param id Il nuovo ID

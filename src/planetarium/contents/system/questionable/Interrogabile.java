@@ -45,8 +45,7 @@ public class Interrogabile {
     }
 
     /**
-     * Dalla lista generata dal metodo {@link Interrogabile#trovaPercorso} (planetarium.contents.corpicelesti.interfaces.CorpoCeleste,
-     * planetarium.contents.celestials.interfaces.CorpoCeleste)
+     * Dalla lista generata dal metodo {@link Interrogabile#trovaPercorso(planetarium.contents.corpicelesti.interfaces.CorpoCeleste, planetarium.contents.corpicelesti.interfaces.CorpoCeleste)
      * } genera la stringa corrispondente.
      *
      * @param from Il corpo celeste da cui si parte.

@@ -13,18 +13,18 @@ import planetarium.contents.system.questionable.Interrogabile;
 public class InputOggetti {
 
     public static Posizione leggiPosizione() {
-        Formattazione.printOut("Inserisci posizione",true,false);
+        Formattazione.printOut("Inserisci posizione", true, false);
         Formattazione.incrementaIndentazioni();
-        Double x = GestioneInput.leggiDouble("x: ");
-        Double y = GestioneInput.leggiDouble("y: ");
+        Double x = GestioneInput.leggiDouble("X: ");
+        Double y = GestioneInput.leggiDouble("Y: ");
         Formattazione.decrementaIndentazioni();
         return new Posizione(x, y);
     }
 
     public static Pianeta leggiPianeta() {
-        Formattazione.printOut("Registra nuovo pianeta: ",true,false);
+        Formattazione.printOut("Registra nuovo pianeta: ", true, false);
         Formattazione.incrementaIndentazioni();
-        String nome = GestioneInput.leggiString("Inserisci il nome: ");
+        String nome = GestioneInput.leggiString("Inserisci il nome: ", true);
         Double massa = GestioneInput.leggiDouble("Inserisci la Massa: ");
         Posizione posizione = leggiPosizione();
         Formattazione.decrementaIndentazioni();
@@ -32,9 +32,9 @@ public class InputOggetti {
     }
 
     public static Luna leggiLuna() {
-        Formattazione.printOut("Registra nuova luna: ",true,false);
+        Formattazione.printOut("Registra nuova luna: ", true, false);
         Formattazione.incrementaIndentazioni();
-        String nome = GestioneInput.leggiString("Inserisci il nome: ");
+        String nome = GestioneInput.leggiString("Inserisci il nome: ", true);
         Double massa = GestioneInput.leggiDouble("Inserisci la Massa: ");
         Posizione posizione = leggiPosizione();
         Formattazione.decrementaIndentazioni();
@@ -42,9 +42,9 @@ public class InputOggetti {
     }
 
     public static Stella leggiStella() {
-        Formattazione.printOut("Registra la stella: ",true,false);
+        Formattazione.printOut("Registra la stella: ", true, false);
         Formattazione.incrementaIndentazioni();
-        String nome = GestioneInput.leggiString("Inserisci il nome: ");
+        String nome = GestioneInput.leggiString("Inserisci il nome: ", true);
         Double massa = GestioneInput.leggiDouble("Inserisci la Massa: ");
         Posizione posizione = leggiPosizione();
         Formattazione.decrementaIndentazioni();
@@ -52,7 +52,7 @@ public class InputOggetti {
     }
 
     public static GestioneSistema leggiGestioneSistema() {
-        String nomeSistema = GestioneInput.leggiString("Inserire nome del Sistema: ");
+        String nomeSistema = GestioneInput.leggiString("Inserire nome del Sistema: ", true);
         Boolean sn = GestioneInput.leggiBoolean("Vuoi inserire una nuova stella? (altrimenti è generata automaticamente) ");
         if (sn) {
             Formattazione.incrementaIndentazioni();
@@ -66,10 +66,10 @@ public class InputOggetti {
 
         GestioneSistema gs = GestioneSistema.getIstance();
         if (gs != null) {
-            Formattazione.printOut("Cosa vuoi inserire?",true,false);
+            Formattazione.printOut("Cosa vuoi inserire?", true, false);
             Formattazione.incrementaIndentazioni();
-            Formattazione.printOut("[1] Pianeta",true,false);
-            Formattazione.printOut("[2] Luna",true,false);
+            Formattazione.printOut("[1] Pianeta", true, false);
+            Formattazione.printOut("[2] Luna", true, false);
             Formattazione.incrementaIndentazioni();
             Integer valore = GestioneInput.leggiInteger("Operzione: ");
             switch (valore) {
@@ -85,6 +85,7 @@ public class InputOggetti {
                     if (gs.haAlmenoUnPianeta()) {
                         CorpoCeleste luna = leggiLuna();
                         Formattazione.incrementaIndentazioni();
+                        Formattazione.printOut("Seleziona un padre intorno a cui orbita (solo pianeti):", true, false);
                         CorpoCeleste padre = ricercaCorpoCeleste();
                         Formattazione.incrementaIndentazioni();
                         if (padre != null && padre.getTipo() == TipiCorpiCelesti.PIANETA) {
@@ -95,7 +96,7 @@ public class InputOggetti {
                             Formattazione.decrementaIndentazioni();
                             return luna;
                         } else {
-                            Formattazione.printOut("Il corpo celeste è inesistente o non è un pianeta ",true,true);
+                            Formattazione.printOut("Il corpo celeste scelto è inesistente o non è un pianeta.", true, true);
                             Formattazione.decrementaIndentazioni();
                             Formattazione.decrementaIndentazioni();
                             Formattazione.decrementaIndentazioni();
@@ -103,29 +104,29 @@ public class InputOggetti {
                             return null;
                         }
                     } else {
-                        Formattazione.printOut("Non si possono aggiungere lune se non ci sono pianeti ", true , true);
+                        Formattazione.printOut("Non si possono aggiungere lune se non ci sono pianeti.", true, true);
                         Formattazione.decrementaIndentazioni();
                         Formattazione.decrementaIndentazioni();
                         return null;
                     }
                 default:
-                    Formattazione.printOut("Operazione non valida",true,true);
+                    Formattazione.printOut("Operazione non valida.", true, true);
                     Formattazione.decrementaIndentazioni();
                     Formattazione.decrementaIndentazioni();
             }
             return null;
         } else {
-           Formattazione.printOut("Sistema non ancora creato",true,true);
+            Formattazione.printOut("Sistema non ancora creato.", true, true);
             return null;
         }
 
     }
 
     public static CorpoCeleste ricercaCorpoCeleste() {
-        Formattazione.printOut("Come vuoi cercare il corpo celeste?",true,false);
+        Formattazione.printOut("Come vuoi cercare il corpo celeste?", true, false);
         Formattazione.incrementaIndentazioni();
-        Formattazione.printOut("[1] Codice ID",true,false);
-        Formattazione.printOut("[2] Nome",true,false);
+        Formattazione.printOut("[1] Codice ID", true, false);
+        Formattazione.printOut("[2] Nome", true, false);
         Formattazione.incrementaIndentazioni();
         Integer scelta;
         do {
@@ -138,7 +139,7 @@ public class InputOggetti {
             return ccl;
 
         } else {
-            CorpoCeleste ccl= Interrogabile.getCorpoCelesteByName(GestioneInput.leggiString("Inserisci nome: "));
+            CorpoCeleste ccl = Interrogabile.getCorpoCelesteByName(GestioneInput.leggiString("Inserisci nome: ", false));
             Formattazione.decrementaIndentazioni();
             return ccl;
         }
@@ -147,75 +148,79 @@ public class InputOggetti {
 
     public static void stampaLune() {
         GestioneSistema gs = GestioneSistema.getIstance();
-        if (gs != null){
-            if (gs.haAlmenoUnPianeta()){
-                Formattazione.printOut("Cerca il pianeta di cui vedere le lune", true,false);
+        if (gs != null) {
+            if (gs.haAlmenoUnPianeta()) {
+                Formattazione.printOut("Cerca il pianeta di cui vedere le lune:", true, false);
                 Formattazione.incrementaIndentazioni();
                 CorpoCeleste cl = ricercaCorpoCeleste();
                 Formattazione.decrementaIndentazioni();
-                if (cl != null && cl.getTipo()==TipiCorpiCelesti.PIANETA){
+                if (cl != null && cl.getTipo() == TipiCorpiCelesti.PIANETA) {
                     StringBuilder sd = new StringBuilder();
-                    cl.getOrbita().forEach((luna)->{
+                    cl.getOrbita().forEach((luna) -> {
                         sd.append(luna.getNome()).append(", ");
                     });
-                    sd.delete(sd.length()-2, sd.length());
-                    Formattazione.printOut("Lista delle lune orbitanti intorno a "+cl.getNome(),true,false);
+                    sd.delete(sd.length() - 2, sd.length());
+                    Formattazione.printOut("Lista delle lune orbitanti intorno a " + cl.getNome(), true, false);
                     Formattazione.incrementaIndentazioni();
-                    Formattazione.printOut(sd.toString(),true,false);
+                    Formattazione.printOut(sd.toString(), true, false);
                     Formattazione.decrementaIndentazioni();
-                }else {
-                    Formattazione.printOut("Errore! il corpo celeste non esiste o non è un pianeta", true, true);
+                } else {
+                    Formattazione.printOut("Errore! Il corpo celeste non esiste o non è un pianeta.", true, true);
                 }
-            }else{
-                Formattazione.printOut("Errore! inseriere almeno un pianeta ",true,true);
+            } else {
+                Formattazione.printOut("Errore! Inseriere almeno un pianeta.", true, true);
             }
-        }else {
-            Formattazione.printOut("Sistema non ancora creato",true,true);
+        } else {
+            Formattazione.printOut("Sistema non ancora creato.", true, true);
         }
 
     }
-    public static void gerarchia(){
+
+    public static void gerarchia() {
         GestioneSistema gs = GestioneSistema.getIstance();
-        if (gs != null){
-            if (gs.haAlmenoUnPianeta()){
-                Formattazione.printOut("Ordine di appartenenza di un corpo celeste: ",true,false);
+        if (gs != null) {
+            if (gs.haAlmenoUnPianeta()) {
+                Formattazione.printOut("Visualizza l'ordine di appartenenza di un corpo celeste: ", true, false);
                 Formattazione.incrementaIndentazioni();
                 CorpoCeleste abc = ricercaCorpoCeleste();
                 Formattazione.decrementaIndentazioni();
-                if (abc!=null){
-                    Formattazione.printOut("La gerarchia è: "+Interrogabile.getPercorsoPerCorpoCeleste(abc),true,false);
-                }else{
-                    Formattazione.printOut("Errore! il corpo celeste non esiste ", true, true);
+                if (abc != null) {
+                    Formattazione.printOut("La gerarchia è: " + Interrogabile.getPercorsoPerCorpoCeleste(abc), true, false);
+                } else {
+                    Formattazione.printOut("Errore! Il corpo celeste non esiste.", true, true);
                 }
 
-            }else {
-                Formattazione.printOut("Errore! inseriere almeno un pianeta ",true,true);
+            } else {
+                Formattazione.printOut("Errore! Inseriere almeno un pianeta.", true, true);
             }
-        }else {
-            Formattazione.printOut("Sistema non ancora creato",true,true);
+        } else {
+            Formattazione.printOut("Sistema non ancora creato.", true, true);
         }
     }
-    public static void percorso(){
+
+    public static void percorso() {
         GestioneSistema gs = GestioneSistema.getIstance();
-        if (gs != null){
-            if (gs.haAlmenoUnPianeta()){
-                Formattazione.printOut("Calcola percorso tra due corpi celesti ",true,false);
+        if (gs != null) {
+            if (gs.haAlmenoUnPianeta()) {
+                Formattazione.printOut("Calcola percorso tra due corpi celesti ", true, false);
                 Formattazione.incrementaIndentazioni();
+                Formattazione.printOut("Scegli corpo celeste 1:", true, false);
                 CorpoCeleste da = ricercaCorpoCeleste();
+                Formattazione.printOut("Scegli corpo celeste 2:", true, false);
                 CorpoCeleste a = ricercaCorpoCeleste();
                 Formattazione.decrementaIndentazioni();
-                if (da!=null && a!=null){
-                    Formattazione.printOut("Il percorso è: "+Interrogabile.generaPercorsoObbligatorio(da,a),true,false);
-                    Formattazione.printOut("La distanza totale è: "+ Calcolatore.calcolaDistanza(Interrogabile.trovaPercorso(da,a)),true,false);
-                }else{
-                    Formattazione.printOut("Errore! uno dei corpi celesti non esiste ", true, true);
+                if (da != null && a != null) {
+                    Formattazione.printOut("Il percorso è: " + Interrogabile.generaPercorsoObbligatorio(da, a), true, false);
+                    Formattazione.printOut("La distanza totale è: " + Calcolatore.calcolaDistanza(Interrogabile.trovaPercorso(da, a)), true, false);
+                } else {
+                    Formattazione.printOut("Errore! Uno dei due corpi celesti non esiste.", true, true);
                 }
 
-            }else {
-                Formattazione.printOut("Errore! inseriere almeno un pianeta ",true,true);
+            } else {
+                Formattazione.printOut("Errore! Inseriere almeno un pianeta.", true, true);
             }
-        }else {
-            Formattazione.printOut("Sistema non ancora creato",true,true);
+        } else {
+            Formattazione.printOut("Sistema non ancora creato.", true, true);
         }
     }
 

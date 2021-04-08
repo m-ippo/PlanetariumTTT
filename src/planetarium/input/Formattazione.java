@@ -1,24 +1,30 @@
 package planetarium.input;
 
 public class Formattazione {
+
     private static int INDENTAZIONI = 0;
-    public static void incrementaIndentazioni(){
+
+    public static void incrementaIndentazioni() {
         INDENTAZIONI++;
     }
-    public static void decrementaIndentazioni(){
+
+    public static void decrementaIndentazioni() {
         INDENTAZIONI--;
     }
-    public static String getIndentazioni(){
+
+    public static String getIndentazioni() {
         StringBuilder sb = new StringBuilder();
-        for (int i=0; i<INDENTAZIONI;i++){
+        for (int i = 0; i < INDENTAZIONI; i++) {
             sb.append("\t");
-        }return sb.toString();
+        }
+        return sb.toString();
     }
-    public static void printOut(String messaggio,boolean nuovaLinea, boolean errore){
-        String msg = getIndentazioni()+messaggio+(nuovaLinea?"\n":"");
-        if (errore){
+
+    public static void printOut(String messaggio, boolean nuovaLinea, boolean errore) {
+        String msg = getIndentazioni() + messaggio + (nuovaLinea ? "\n" : "");
+        if (errore) {
             System.err.print(msg);
-        }else {
+        } else {
             System.out.print(msg);
         }
     }

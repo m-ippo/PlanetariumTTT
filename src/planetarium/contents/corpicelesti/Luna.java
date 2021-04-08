@@ -8,7 +8,9 @@ import planetarium.contents.corpicelesti.enums.TipiCorpiCelesti;
 import planetarium.contents.corpicelesti.interfaces.CorpoCeleste;
 import planetarium.contents.registro.Registro;
 import planetarium.contents.registro.abstracts.ElementoRegistrabile;
+import planetarium.contents.registro.eccezioni.SiiSerioException;
 import planetarium.contents.system.posizione.Posizione;
+import planetarium.contents.system.utils.NamePicker;
 
 public class Luna extends ElementoRegistrabile implements CorpoCeleste {
 
@@ -28,9 +30,12 @@ public class Luna extends ElementoRegistrabile implements CorpoCeleste {
      * @param pos posizione del pianeta
      */
     public Luna(String nome, double massa, Posizione pos) {
-        this.nome = nome;
+        if (massa < 0) {
+            throw new SiiSerioException("La massa non può essere negativa.");
+        }
         this.massa = massa;
-        this.posizione = pos;
+        this.nome = nome == null || "".equals(nome.trim()) ? NamePicker.getIstance().getName(TipiCorpiCelesti.LUNA) : nome;
+        this.posizione = pos == null ? new Posizione(0, 0) : pos;
         init();
     }
 
@@ -57,11 +62,12 @@ public class Luna extends ElementoRegistrabile implements CorpoCeleste {
 
     @Override
     public void setPadre(CorpoCeleste c) {
-        if (c.getTipo() == TipiCorpiCelesti.PIANETA) {
+        if (padre == null && c.getTipo() == TipiCorpiCelesti.PIANETA) {
             this.padre = c;
-        } else {
-            System.out.println("Operazione non consentita. Try again.");
         }
+        /*else {
+            System.out.println("Operazione non consentita. Riprovare.");
+        }*/
     }
 
     @Override
@@ -75,7 +81,7 @@ public class Luna extends ElementoRegistrabile implements CorpoCeleste {
 
     @Override
     public String toString() {
-        return this.nome + /*", massa: " + this.massa + */" [" + this.getTipo() + "]";
+        return this.nome + /*", massa: " + this.massa + */ " [" + this.getTipo() + "]";
     }
 
     @Override
@@ -89,7 +95,7 @@ public class Luna extends ElementoRegistrabile implements CorpoCeleste {
     @Override
     public void distruggi() {
         Registro.rimuoviElemento(this);
-        padre.distruggiElemento(this);
+        padre.distruggiElemento(this); //non serve, l'istruzione precedente de-registra in modo autonomo il corpo
     }
 
     @Override

@@ -5,8 +5,6 @@
  */
 package planetarium.contents.system.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -17,6 +15,7 @@ import planetarium.contents.corpicelesti.enums.TipiCorpiCelesti;
 import static planetarium.contents.corpicelesti.enums.TipiCorpiCelesti.LUNA;
 import static planetarium.contents.corpicelesti.enums.TipiCorpiCelesti.PIANETA;
 import static planetarium.contents.corpicelesti.enums.TipiCorpiCelesti.STELLA;
+import planetarium.input.Formattazione;
 
 /**
  *
@@ -45,7 +44,7 @@ public class NamePicker {
             Collections.shuffle(pianeti);
             Collections.shuffle(stelle);
         } catch (IOException ioe) {
-
+            Formattazione.printOut("Sei sfortunato: niente cose divertenti per te!", true, true);
         }
     }
 

@@ -2,6 +2,9 @@ package planetarium.contents.corpicelesti.interfaces;
 
 import java.util.List;
 import planetarium.contents.corpicelesti.enums.TipiCorpiCelesti;
+import planetarium.contents.registro.Registro;
+import planetarium.contents.registro.abstracts.ElementoRegistrabile;
+import planetarium.contents.registro.eventi.EventoRegistro;
 import planetarium.contents.system.posizione.Posizione;
 import planetarium.contents.system.questionable.interfaces.SupportoCalcoli;
 import planetarium.contents.system.questionable.interfaces.SupportoQuery;
@@ -32,6 +35,11 @@ public interface CorpoCeleste extends SupportoCalcoli, SupportoQuery {
      */
     public CorpoCeleste getPadre();
 
+    /**
+     * Ritorna tutti gli elementi che orbitano intorno a questo corpo celeste.
+     *
+     * @return
+     */
     public List<CorpoCeleste> getOrbita();
 
     /**
@@ -45,14 +53,18 @@ public interface CorpoCeleste extends SupportoCalcoli, SupportoQuery {
      * Ritorna il codice identificativo del corpo celeste
      *
      * @return codice ID
+     * @deprecated Inutilizzato, si usa {@link ElementoRegistrabile}
      */
+    @Deprecated
     public int getCodiceID();
 
     /**
      * Metodo per impostare il codice identificativo del corpo celeste
      *
      * @param codiceID Il codice univoco
+     * @deprecated Inutilizzato, si usa {@link ElementoRegistrabile}
      */
+    @Deprecated
     public void setCodiceID(int codiceID);
 
     /**
@@ -82,7 +94,10 @@ public interface CorpoCeleste extends SupportoCalcoli, SupportoQuery {
      * Distrugge il corpo celeste se sta nell'orbita
      *
      * @param c Corpo celeste da distruggere
+     * @deprecated Inutilizzato, si usa {@link EventoRegistro} insieme a
+     * {@link Registro}
      */
+    @Deprecated
     public void distruggiElemento(CorpoCeleste c);
 
     /**

@@ -53,24 +53,27 @@ public class Calcolatore {
      * @return
      */
     public static double ricalcolaValori(CorpoCeleste ic) {
-        double final_mass = ic.getMassa();
-        if (ic.deveEssereRicalcolato()) {
-            Posizione final_wpos = Posizione.multiply(ic.getPosizione(), final_mass);
-            for (CorpoCeleste sic : ic.getOrbita()) {
-                final_mass += ricalcolaValori(sic);
-                final_wpos = Posizione.sum(final_wpos, sic.getPosizionePesata());
-            }
-            ic.setMassaCalcolata(final_mass);
-            ic.setPosizionePesata(final_wpos);
-        } else {
-            /*for (CorpoCeleste sic : ic.getOrbita()) {
+        if (ic != null) {
+            double final_mass = ic.getMassa();
+            if (ic.deveEssereRicalcolato()) {
+                Posizione final_wpos = Posizione.multiply(ic.getPosizione(), final_mass);
+                for (CorpoCeleste sic : ic.getOrbita()) {
+                    final_mass += ricalcolaValori(sic);
+                    final_wpos = Posizione.sum(final_wpos, sic.getPosizionePesata());
+                }
+                ic.setMassaCalcolata(final_mass);
+                ic.setPosizionePesata(final_wpos);
+            } else {
+                /*for (CorpoCeleste sic : ic.getOrbita()) {
                 if (sic.deveEssereRicalcolato()) {
                     final_mass += ricalcolaValori(sic);
                 }
             }*/
-            final_mass = ic.getMassaCalcolata();
+                final_mass = ic.getMassaCalcolata();
+            }
+            return final_mass;
         }
-        return final_mass;
+        return 0.0;
     }
 
     /**
@@ -81,7 +84,10 @@ public class Calcolatore {
      * @return La distanza da percorrere.
      */
     public static double calcolaDistanza(CorpoCeleste ic1, CorpoCeleste ic2) {
-        return Math.sqrt(Math.pow(ic1.getPosizione().getX() - ic2.getPosizione().getX(), 2.0) + Math.pow(ic1.getPosizione().getY() - ic2.getPosizione().getY(), 2.0));
+        if (ic1 != null && ic2 != null) {
+            return Math.sqrt(Math.pow(ic1.getPosizione().getX() - ic2.getPosizione().getX(), 2.0) + Math.pow(ic1.getPosizione().getY() - ic2.getPosizione().getY(), 2.0));
+        }
+        return 0.0;
     }
 
     /**
@@ -93,8 +99,10 @@ public class Calcolatore {
      */
     public static double calcolaDistanza(LinkedList<CorpoCeleste> ordered_list) {
         double somma = 0.0;
-        for (int i = 0; i < ordered_list.size() - 1; i++) {
-            somma += Calcolatore.calcolaDistanza(ordered_list.get(i), ordered_list.get(i + 1));
+        if (ordered_list != null) {
+            for (int i = 0; i < ordered_list.size() - 1; i++) {
+                somma += Calcolatore.calcolaDistanza(ordered_list.get(i), ordered_list.get(i + 1));
+            }
         }
         return somma;
     }
@@ -106,7 +114,7 @@ public class Calcolatore {
      * @return La distanza del corpo celeste dal padre, altrimenti 0.
      */
     public static double calcolaRaggioOrbita(CorpoCeleste ic) {
-        if (ic.getPadre() != null) {
+        if (ic != null && ic.getPadre() != null) {
             CorpoCeleste parent = ic.getPadre();
             return Calcolatore.calcolaDistanza(ic, parent);
         }

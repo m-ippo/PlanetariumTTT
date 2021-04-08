@@ -84,7 +84,7 @@ public class Interrogabile {
 
     private static List<CorpoCeleste> searchByTipiCorpiCelesti(CorpoCeleste ic, TipiCorpiCelesti ct) {
         ArrayList<CorpoCeleste> ics = new ArrayList<>();
-        ic.getOrbita().stream().filter(t -> t.getTipo()== ct).forEach(t -> ics.add(t));
+        ic.getOrbita().stream().filter(t -> t.getTipo() == ct).forEach(t -> ics.add(t));
         return Collections.unmodifiableList(ics);
     }
 
@@ -153,7 +153,7 @@ public class Interrogabile {
 
     private static String getToParentPath(CorpoCeleste ic) {
         String s = ic.toString();
-        if (ic.getPadre()!= null) {
+        if (ic.getPadre() != null) {
             s = getToParentPath(ic.getPadre()) + " > " + s;
         }
         return s;

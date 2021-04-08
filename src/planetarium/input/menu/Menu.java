@@ -11,21 +11,28 @@ import planetarium.input.menu.utili.Coppia;
 import planetarium.input.menu.utili.FuturaAzioneMenu;
 
 import java.util.ArrayList;
+import planetarium.input.menu.utili.Aiuto;
 import planetarium.input.menu.utili.TreeSystem;
 
 public class Menu {
 
-    private ArrayList<Coppia<String, FuturaAzioneMenu>> menu;
+    private final ArrayList<Coppia<String, FuturaAzioneMenu>> menu;
+    private final ArrayList<FuturaAzioneMenu> esegui_dopo_menu;
 
     public Menu() {
         this.menu = new ArrayList<>();
+        this.esegui_dopo_menu = new ArrayList<>();
         init();
     }
 
     private void init() {
         Formattazione.incrementaIndentazioni();
         menu.add(new Coppia<>("Esci", () -> {
+            Formattazione.printOut("Arrivederci!!!", true, false);
             System.exit(0);
+        }));
+        menu.add(new Coppia<>("Visualizza aiuto", () -> {
+            Aiuto.getIstance().printHelp();
         }));
         if (GestioneSistema.getIstance() != null) {
             aggiungiOpzioniBase();
@@ -34,13 +41,15 @@ public class Menu {
                 GestioneSistema lgs = InputOggetti.leggiGestioneSistema();
                 if (lgs != null) {
                     aggiungiOpzioniBase();
+                    esegui_dopo_menu.add(() -> {
+                        menu.remove(2);
+                    });
                 }
             }));
         }
     }
 
     private void aggiungiOpzioniBase() {
-
         menu.add(new Coppia<>("Inserisci un corpo celeste", () -> {
             CorpoCeleste cc = InputOggetti.leggiCorpoCeleste();
             if (cc != null) {
@@ -101,6 +110,8 @@ public class Menu {
 
     private void eseguiOperazione(int operazione) {
         menu.get(operazione).getValore().onSelezionato();
+        esegui_dopo_menu.forEach(FuturaAzioneMenu::onSelezionato);
+        esegui_dopo_menu.clear();
         stampaMenu();
     }
 

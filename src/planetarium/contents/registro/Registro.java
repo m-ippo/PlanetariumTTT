@@ -117,7 +117,7 @@ public final class Registro {
      */
     public static void stampaRegistro() {
         registry.forEach((t, u) -> {
-            Formattazione.printOut("ID: " + t + "\t\t" + u.toString(),true,false);
+            Formattazione.printOut("ID: " + t + "\t\t" + u.toString(), true, false);
         });
     }
 

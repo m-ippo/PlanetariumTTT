@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Optional;
 import planetarium.contents.registro.Registro;
 import planetarium.contents.registro.abstracts.ElementoRegistrabile;
+import planetarium.contents.registro.eccezioni.SiiSerioException;
 import planetarium.contents.registro.eventi.EventoRegistro;
 import planetarium.contents.registro.eventi.ListenerRegistro;
+import planetarium.contents.system.utils.NamePicker;
 
 /**
  * Definizione del comportamento di un pianeta.
@@ -58,9 +60,12 @@ public class Pianeta extends ElementoRegistrabile implements CorpoCeleste {
      */
     public Pianeta(String nome, double massa, Posizione pos) {
         this.elenco = new ArrayList<>();
-        this.nome = nome;
+        if (massa < 0) {
+            throw new SiiSerioException("La massa non può essere negativa.");
+        }
         this.massa = massa;
-        this.posizione = pos;
+        this.nome = nome == null || "".equals(nome.trim()) ? NamePicker.getIstance().getName(TipiCorpiCelesti.PIANETA) : nome;
+        this.posizione = pos == null ? new Posizione(0, 0) : pos;
         init();
     }
 
@@ -100,14 +105,14 @@ public class Pianeta extends ElementoRegistrabile implements CorpoCeleste {
     public void setPadre(CorpoCeleste c) {
         if (padre == null && c.getTipo() == TipiCorpiCelesti.STELLA) {
             this.padre = c;
-        } else {
-            System.err.println("Operazione non consentita. Try again.");
         }
+        /*else {
+            System.err.println("Operazione non consentita. Try again.");
+        }*/
     }
 
     @Override
     public void aggiungiCorpoCeleste(Object c) {
-
         if (c != null && c instanceof CorpoCeleste) {
             CorpoCeleste as_celestial = (CorpoCeleste) c;
             if (!elenco.contains(as_celestial) && as_celestial.getTipo() == TipiCorpiCelesti.LUNA && c instanceof ElementoRegistrabile) {
@@ -118,9 +123,12 @@ public class Pianeta extends ElementoRegistrabile implements CorpoCeleste {
                     necessita_ricalcolo = true;
                 }
             }
-        } else {
-            System.err.println("Operazione non consentita. Try again.");
         }
+        /*else {
+            System.err.println("Operazione non consentita. Try again.");
+        }*/
+
+        //NON SI USA PIU' IL CODICE SOTTO QUESTO COMMENTO POICHE' E' IL REGISTRO CHE PERMETTE AD UN ELEMENTO DI ESSERE REGISTRATO
 
         /*if (c != null && c.getTipo() == TipiCorpiCelesti.LUNA && c.getPadre() == null) {            
             this.elenco.add(c);
@@ -157,7 +165,8 @@ public class Pianeta extends ElementoRegistrabile implements CorpoCeleste {
 
     @Override
     public void distruggi() {
-        padre.distruggiElemento(this);
+        Registro.rimuoviElemento(this);
+        padre.distruggiElemento(this);//non serve, l'istruzione precedente de-registra in modo autonomo il corpo
     }
 
     @Override

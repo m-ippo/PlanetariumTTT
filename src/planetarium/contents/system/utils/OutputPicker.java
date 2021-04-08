@@ -5,13 +5,12 @@
  */
 package planetarium.contents.system.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Stack;
+import planetarium.input.Formattazione;
 
 /**
  *
@@ -36,7 +35,7 @@ public class OutputPicker {
             Collections.reverse(created);
             Collections.reverse(deleted);
         } catch (IOException ex) {
-
+            Formattazione.printOut("Sei sfortunato: niente cose divertenti per te!", true, true);
         }
     }
 

@@ -27,7 +27,7 @@ public class Calcolatore {
      * @return un array di 3 componenti: La massa totale, la massa lungo l'asse
      * X e una lungo Y.
      * @deprecated Da sostituire con un metodo che faccia utilizzo
-     * dell'interfaccia {@link CalcSupport}
+     * dell'interfaccia {@link planetarium.contents.system.questionable.interfaces.SupportoCalcoli}
      */
     @Deprecated
     public static double[] calcMassaPesata(CorpoCeleste ic) {

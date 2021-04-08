@@ -26,7 +26,7 @@ public class PlanetariumMain {
         gs.aggiungiElementoA(pianeta1, luna1, true);
         gs.aggiungiElementoA(pianeta2, luna2, true);
         gs.aggiungiElementoA(pianeta2, luna3, true);*/
-        
+
         Menu nuovoMenu = new Menu();
         nuovoMenu.stampaMenu();
     }

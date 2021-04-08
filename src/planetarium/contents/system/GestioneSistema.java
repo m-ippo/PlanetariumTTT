@@ -1,6 +1,5 @@
 package planetarium.contents.system;
 
-import javax.swing.text.Position;
 import planetarium.contents.corpicelesti.Luna;
 import planetarium.contents.corpicelesti.Pianeta;
 import planetarium.contents.corpicelesti.Stella;
@@ -21,6 +20,7 @@ import planetarium.contents.system.utils.NamePicker;
  */
 public class GestioneSistema {
 
+    private static GestioneSistema istance;
     private final String nome;
     private final Stella unica_stella;
     private static final Griglia sistema_coordinate = new Griglia(0, 0);
@@ -28,10 +28,21 @@ public class GestioneSistema {
     private int contatore_pianeti = 0;
     private int moon_counter = 0;
 
-    public GestioneSistema(String name) {
+    private GestioneSistema(String name) {
         this.nome = name == null || "".equals(name.trim()) ? NamePicker.getInstance().getName(null) : name;
         unica_stella = Stella.generateIstance("", (Math.random() + 1) * 1000, new Posizione(0, 0));
         init();
+    }
+
+    public static GestioneSistema getIstance(String name) {
+        if (istance == null) {
+            istance = new GestioneSistema(name);
+        }
+        return istance;
+    }
+
+    public static void destroy() {
+        istance = null;
     }
 
     private void init() {

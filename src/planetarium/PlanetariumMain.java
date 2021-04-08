@@ -3,7 +3,6 @@ package planetarium;
 import planetarium.contents.corpicelesti.Luna;
 import planetarium.contents.corpicelesti.Pianeta;
 import planetarium.contents.corpicelesti.Stella;
-import planetarium.contents.corpicelesti.operazioni.Operazioni;
 import planetarium.contents.system.GestioneSistema;
 import planetarium.contents.system.posizione.Posizione;
 import planetarium.input.GestioneInput;

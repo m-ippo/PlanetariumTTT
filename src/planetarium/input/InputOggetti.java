@@ -218,5 +218,77 @@ public class InputOggetti {
             Formattazione.printOut("Sistema non ancora creato",true,true);
         }
     }
+    public static void mostraCC(){
+        GestioneSistema gs = GestioneSistema.getIstance();
+        if (gs != null){
+            Formattazione.printOut("Seleziona corpo celeste per informazioni ",true,false);
+            Formattazione.incrementaIndentazioni();
+            CorpoCeleste ricerca = ricercaCorpoCeleste();
+            if (ricerca!=null){
+                System.out.println();
+                Formattazione.printOut("Trovato: "+ricerca.getNome(),true,false);
+                Formattazione.incrementaIndentazioni();
+                Formattazione.printOut("Massa: "+ricerca.getMassa(),true,false);
+                Formattazione.printOut("Tipo: "+ricerca.getTipo(),true,false);
+                Formattazione.printOut("POsizione Assoluta: "+ricerca.getPosizione(),true,false);
+                if (ricerca.getTipo()!=TipiCorpiCelesti.STELLA){
+                    Formattazione.printOut("Padre: "+ricerca.getPadre(),true,false);
+                    Formattazione.printOut("Posizione Relativa: "+gs.getGriglia().getPosizioneRelativeToParent(ricerca),true,false);
+                }
+                Formattazione.decrementaIndentazioni();
 
+            }else {
+                Formattazione.printOut("Errore! il corpo celeste non esiste ", true, true);
+
+            }Formattazione.decrementaIndentazioni();
+        }else {
+            Formattazione.printOut("Sistema non ancora creato",true,true);
+        }
+    }
+    public static void calcolaMassa(){
+        GestioneSistema gs = GestioneSistema.getIstance();
+        if (gs != null){
+            Double massa = Calcolatore.ricalcolaValori(gs.getUnica_Stella());
+            Posizione posizione = gs.getUnica_Stella().getPosizionePesata();
+            Formattazione.incrementaIndentazioni();
+            Formattazione.printOut("La somma delle masse vale: "+ massa,true,false);
+            Formattazione.printOut("La somma delle posizioni in base alla massa vale: "+ posizione,true,false);
+            Formattazione.printOut("Il centro di massa vale: "+ Posizione.divide(posizione,massa),true,false);
+            Formattazione.decrementaIndentazioni();
+        }else{
+            Formattazione.printOut("Sistema non ancora creato",true,true);
+        }
+
+    }
+
+    public static void controllaCollisioni(){
+        GestioneSistema gs = GestioneSistema.getIstance();
+        if (gs != null){
+
+            if (gs.haAlmenoUnPianeta()){
+                Formattazione.printOut("Controlla la collisione tra due corpi celesti",true,false);
+                Formattazione.incrementaIndentazioni();
+                CorpoCeleste c1 = ricercaCorpoCeleste();
+                CorpoCeleste c2 = ricercaCorpoCeleste();
+                Formattazione.decrementaIndentazioni();
+                if(c1!=null && c2!=null){
+                    Boolean a = Calcolatore.puoCollidere(c1,c2);
+                    Formattazione.printOut("Controllo collisione tra "+c1+" e "+c2+":", true, false);
+                    if(a){
+                        Formattazione.printOut("Le orbite hanno almeno un punto di collisione ", true, false);
+                    }else {
+                        Formattazione.printOut("I due corpi non collidono ", true, false);
+                    }
+                }else{
+                    Formattazione.printOut("Errore! uno dei corpi celesti non esiste ", true, true);
+                }
+            }else {
+                Formattazione.printOut("Errore! inseriere almeno un pianeta ",true,true);
+            }
+        }else{
+            Formattazione.printOut("Sistema non ancora creato",true,true);
+        }
+
+
+    }
 }

@@ -81,6 +81,15 @@ public class Menu {
             TreeSystem ts = new TreeSystem();
             ts.printTree();
         }));
+        menu.add(new Coppia<>("Trova corpo celeste",()->{
+            InputOggetti.mostraCC();
+        }));
+        menu.add(new Coppia<>("Calcola somma delle masse e somma pesata delle posizioni",()->{
+            InputOggetti.calcolaMassa();
+        }));
+        menu.add(new Coppia<>("Calcola collisioni ",()->{
+            InputOggetti.controllaCollisioni();
+        }));
     }
 
     public void stampaMenu() {
@@ -103,5 +112,6 @@ public class Menu {
         menu.get(operazione).getValore().onSelezionato();
         stampaMenu();
     }
+
 
 }

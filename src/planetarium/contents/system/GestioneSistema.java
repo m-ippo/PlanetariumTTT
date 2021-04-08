@@ -40,7 +40,9 @@ public class GestioneSistema {
         }
         return istance;
     }
-
+    public static GestioneSistema getIstance(){
+        return istance;
+    }
     public static void destroy() {
         istance = null;
     }

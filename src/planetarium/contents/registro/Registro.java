@@ -10,6 +10,7 @@ import java.util.HashMap;
 import planetarium.contents.registro.abstracts.ElementoRegistrabile;
 import planetarium.contents.registro.eventi.EventoRegistro;
 import planetarium.contents.registro.eccezioni.EccezioneRegistro;
+import planetarium.input.Formattazione;
 
 /**
  * Classe non istanziabile che permette di registrare nuovi elementi nel
@@ -116,7 +117,7 @@ public final class Registro {
      */
     public static void stampaRegistro() {
         registry.forEach((t, u) -> {
-            System.out.println("ID: " + t + "\t\t" + u.toString());
+            Formattazione.printOut("ID: " + t + "\t\t" + u.toString(),true,false);
         });
     }
 

@@ -1,7 +1,9 @@
 package planetarium.input.menu;
 
 import planetarium.contents.corpicelesti.interfaces.CorpoCeleste;
+import planetarium.contents.registro.Registro;
 import planetarium.contents.system.GestioneSistema;
+import planetarium.contents.system.utils.OutputPicker;
 import planetarium.input.Formattazione;
 import planetarium.input.GestioneInput;
 import planetarium.input.InputOggetti;
@@ -41,6 +43,7 @@ public class Menu {
             CorpoCeleste cc = InputOggetti.leggiCorpoCeleste();
             if (cc != null) {
                 Formattazione.printOut("Corpo registrato correttamente ", true, false);
+                Formattazione.printOut(OutputPicker.getIstance().getOnCreate(),true,false);
             } else {
                 Formattazione.printOut("Errore nella registrazione ", true, true);
             }
@@ -52,12 +55,25 @@ public class Menu {
                 if (risposta) {
                     rimuovi.distruggi();
                     Formattazione.printOut(rimuovi.getNome() + " eliminato correttamente! ", true, false);
+                    Formattazione.printOut(OutputPicker.getIstance().getOnDelete(),true,false);
                 }
             }
         }));
 
         menu.add(new Coppia<>("Mostra luna di un pianeta ", () -> {
             InputOggetti.stampaLune();
+        }));
+        menu.add(new Coppia<>("Visualizza gerarchia corpo celeste ", ()->{
+            InputOggetti.gerarchia();
+        }));
+        menu.add(new Coppia<>("Visualizza percorso tra due punti ",()->{
+            InputOggetti.percorso();
+        }));
+        menu.add(new Coppia<>("Mostra registro",()->{
+            Formattazione.printOut("Registro: ",true,false);
+            Formattazione.incrementaIndentazioni();
+            Registro.stampaRegistro();
+            Formattazione.decrementaIndentazioni();
         }));
     }
 
@@ -78,4 +94,5 @@ public class Menu {
         menu.get(operazione).getValore().onSelezionato();
         stampaMenu();
     }
+
 }

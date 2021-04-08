@@ -168,7 +168,7 @@ public class Stella extends ElementoRegistrabile implements CorpoCeleste {
 
     @Override
     public String toString() {
-        return this.nome + ", massa: " + this.massa + " [" + this.getTipo() + "]";
+        return this.nome +/* ", massa: " + this.massa +*/ " [" + this.getTipo() + "]";
     }
 
     @Override

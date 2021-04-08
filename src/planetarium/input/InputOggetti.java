@@ -7,6 +7,7 @@ import planetarium.contents.corpicelesti.enums.TipiCorpiCelesti;
 import planetarium.contents.corpicelesti.interfaces.CorpoCeleste;
 import planetarium.contents.system.GestioneSistema;
 import planetarium.contents.system.posizione.Posizione;
+import planetarium.contents.system.questionable.Calcolatore;
 import planetarium.contents.system.questionable.Interrogabile;
 
 public class InputOggetti {
@@ -173,4 +174,49 @@ public class InputOggetti {
         }
 
     }
+    public static void gerarchia(){
+        GestioneSistema gs = GestioneSistema.getIstance();
+        if (gs != null){
+            if (gs.haAlmenoUnPianeta()){
+                Formattazione.printOut("Ordine di appartenenza di un corpo celeste: ",true,false);
+                Formattazione.incrementaIndentazioni();
+                CorpoCeleste abc = ricercaCorpoCeleste();
+                Formattazione.decrementaIndentazioni();
+                if (abc!=null){
+                    Formattazione.printOut("La gerarchia è: "+Interrogabile.getPercorsoPerCorpoCeleste(abc),true,false);
+                }else{
+                    Formattazione.printOut("Errore! il corpo celeste non esiste ", true, true);
+                }
+
+            }else {
+                Formattazione.printOut("Errore! inseriere almeno un pianeta ",true,true);
+            }
+        }else {
+            Formattazione.printOut("Sistema non ancora creato",true,true);
+        }
+    }
+    public static void percorso(){
+        GestioneSistema gs = GestioneSistema.getIstance();
+        if (gs != null){
+            if (gs.haAlmenoUnPianeta()){
+                Formattazione.printOut("Calcola percorso tra due corpi celesti ",true,false);
+                Formattazione.incrementaIndentazioni();
+                CorpoCeleste da = ricercaCorpoCeleste();
+                CorpoCeleste a = ricercaCorpoCeleste();
+                Formattazione.decrementaIndentazioni();
+                if (da!=null && a!=null){
+                    Formattazione.printOut("Il percorso è: "+Interrogabile.generaPercorsoObbligatorio(da,a),true,false);
+                    Formattazione.printOut("La distanza totale è: "+ Calcolatore.calcolaDistanza(Interrogabile.trovaPercorso(da,a)),true,false);
+                }else{
+                    Formattazione.printOut("Errore! uno dei corpi celesti non esiste ", true, true);
+                }
+
+            }else {
+                Formattazione.printOut("Errore! inseriere almeno un pianeta ",true,true);
+            }
+        }else {
+            Formattazione.printOut("Sistema non ancora creato",true,true);
+        }
+    }
+
 }

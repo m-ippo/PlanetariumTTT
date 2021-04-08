@@ -88,11 +88,9 @@ public class GestioneInput {
             if(Objects.equals(temp, "s")){
                 corretto=true;
                 valoreLetto=true;
-
             }else if (Objects.equals(temp, "n")){
                 valoreLetto=false;
                 corretto=true;
-
             }
             else{
                 System.err.print("Errore! "+messaggio + "[s/n]");

@@ -25,6 +25,7 @@ public class Menu {
     private void init() {
         Formattazione.incrementaIndentazioni();
         menu.add(new Coppia<>("Esci", () -> {
+            Formattazione.printOut("Arrivederci!!!", true, false);
             System.exit(0);
         }));
         if (GestioneSistema.getIstance() != null) {

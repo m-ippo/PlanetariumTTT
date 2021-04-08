@@ -46,7 +46,7 @@ public abstract class ElementoRegistrabile {
 
     /**
      * Registra il corpo celestiale. Solo la classe {@link Registro} tramite il
-     * metodo {@link Registro#registerCelestial(planetarium.contents.registry.abstracts.RegistrableEntry, java.lang.String)
+     * metodo {@link Registro#registraElemento} (planetarium.contents.registry.abstracts.RegistrableEntry, java.lang.String)
      * } può registrare l'ID.
      *
      * @param id Il nuovo ID

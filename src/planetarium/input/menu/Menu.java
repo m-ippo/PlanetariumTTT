@@ -11,6 +11,7 @@ import planetarium.input.menu.utili.Coppia;
 import planetarium.input.menu.utili.FuturaAzioneMenu;
 
 import java.util.ArrayList;
+import planetarium.contents.corpicelesti.enums.TipiCorpiCelesti;
 import planetarium.input.menu.utili.Aiuto;
 import planetarium.input.menu.utili.TreeSystem;
 
@@ -26,6 +27,8 @@ public class Menu {
     }
 
     private void init() {
+        menu.clear();
+        esegui_dopo_menu.clear();
         Formattazione.printOut("\t\tBENVENUTO NEL PLANETARIUM!", true, false);
         Formattazione.incrementaIndentazioni();
         menu.add(new Coppia<>("Esci", () -> {
@@ -63,11 +66,15 @@ public class Menu {
         menu.add(new Coppia<>("Rimuovi corpo celeste", () -> {
             CorpoCeleste rimuovi = InputOggetti.ricercaCorpoCeleste();
             if (rimuovi != null) {
-                Boolean risposta = GestioneInput.leggiBoolean("Sei sicuro di volerlo eliminare? ");
+                Boolean risposta = GestioneInput.leggiBoolean("Sei sicuro di voler eliminare \"" + rimuovi.toString() + "\"? (Tutti i corpi sulle sue orbite verranno eliminati) ");
                 if (risposta) {
                     rimuovi.distruggi();
                     Formattazione.printOut(rimuovi.getNome() + " eliminato correttamente! ", true, false);
                     Formattazione.printOut(OutputPicker.getIstance().getOnDelete(), true, false);
+                    if (rimuovi.getTipo() == TipiCorpiCelesti.STELLA) {
+                        GestioneSistema.destroy();
+                        init();
+                    }
                 }
             }
         }));

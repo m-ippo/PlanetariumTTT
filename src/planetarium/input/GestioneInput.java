@@ -11,17 +11,18 @@ public class GestioneInput {
     public static Double leggiDouble(String messaggio) {
         Double valoreLetto = null;
         boolean corretto = false;
-        System.out.print(messaggio);
-
+        Formattazione.printOut(messaggio,false,false);
+        Formattazione.incrementaIndentazioni();
         while (!corretto) {
             try {
                 valoreLetto = input.nextDouble();
                 corretto = true;
             } catch (InputMismatchException ime) {
                 input.nextLine();
-                System.err.print("Errore! " + messaggio);
+                Formattazione.printOut("Errore! " + messaggio,false,true);
             }
         }
+        Formattazione.decrementaIndentazioni();
         input.nextLine();
         return valoreLetto;
     }
@@ -29,7 +30,8 @@ public class GestioneInput {
     public static Integer leggiInteger(String messaggio) {
         Integer valoreLetto = null;
         boolean corretto = false;
-        System.out.print(messaggio);
+        Formattazione.printOut(messaggio,false,false);
+        Formattazione.incrementaIndentazioni();
 
         while (!corretto) {
             try {
@@ -37,9 +39,11 @@ public class GestioneInput {
                 corretto = true;
             } catch (InputMismatchException ime) {
                 input.nextLine();
-                System.err.print("Errore! " + messaggio);
+                Formattazione.printOut("Errore! " + messaggio,false,true);
             }
         }
+        Formattazione.decrementaIndentazioni();
+
         input.nextLine();
         return valoreLetto;
     }
@@ -47,7 +51,8 @@ public class GestioneInput {
     public static Long leggiLong(String messaggio) {
         Long valoreLetto = null;
         boolean corretto = false;
-        System.out.print(messaggio);
+        Formattazione.printOut(messaggio,false,false);
+        Formattazione.incrementaIndentazioni();
 
         while (!corretto) {
             try {
@@ -55,9 +60,10 @@ public class GestioneInput {
                 corretto = true;
             } catch (InputMismatchException ime) {
                 input.nextLine();
-                System.err.print("Errore! " + messaggio);
+                Formattazione.printOut("Errore! " + messaggio,false,true);
             }
         }
+        Formattazione.decrementaIndentazioni();
         input.nextLine();
         return valoreLetto;
     }
@@ -65,7 +71,8 @@ public class GestioneInput {
     public static String leggiString(String messaggio) {
         String valoreLetto = null;
         boolean corretto = false;
-        System.out.print(messaggio);
+        Formattazione.printOut(messaggio,false,false);
+        Formattazione.incrementaIndentazioni();
 
         while (!corretto) {
 
@@ -73,9 +80,10 @@ public class GestioneInput {
             if (valoreLetto != null && valoreLetto.trim() != "") {
                 corretto = true;
             } else {
-                System.err.print("Errore! " + messaggio);
+                Formattazione.printOut("Errore! " + messaggio,false,true);
             }
         }
+        Formattazione.decrementaIndentazioni();
 
         return valoreLetto;
     }
@@ -83,7 +91,8 @@ public class GestioneInput {
     public static Boolean leggiBoolean(String messaggio) {
         Boolean valoreLetto = null;
         boolean corretto = false;
-        System.out.print(messaggio + "[s/n]");
+        Formattazione.printOut(messaggio + "[s/n]",false,false);
+        Formattazione.incrementaIndentazioni();
         while (!corretto) {
             String temp = input.nextLine();
             if (Objects.equals(temp, "s")) {
@@ -93,9 +102,12 @@ public class GestioneInput {
                 valoreLetto = false;
                 corretto = true;
             } else {
-                System.err.print("Errore! " + messaggio + "[s/n]");
+                Formattazione.printOut("Errore! " + messaggio + "[s/n]",false,true);
+
             }
+
         }
+        Formattazione.decrementaIndentazioni();
 
         return valoreLetto;
     }

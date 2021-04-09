@@ -32,8 +32,8 @@ public class OutputPicker {
                 InputStream delete = getClass().getResourceAsStream("/planetarium/resources/phrases/on_delete")) {
             created.addAll(Arrays.asList(new String(create.readAllBytes()).split("\n")));
             deleted.addAll(Arrays.asList(new String(delete.readAllBytes()).split("\n")));
-            Collections.reverse(created);
-            Collections.reverse(deleted);
+            Collections.shuffle(created);
+            Collections.shuffle(deleted);
         } catch (IOException ex) {
             Formattazione.printOut("Sei sfortunato: niente cose divertenti per te!", true, true);
         }

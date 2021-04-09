@@ -50,8 +50,8 @@ public class Calcolatore {
      * Calcola la somma delle masse solo se ci sono state delle modifiche al
      * sistema.
      *
-     * @param ic
-     * @return
+     * @param ic Corpo celeste da ricalcolare
+     * @return Il valore della massa ricalcolata
      */
     public static double ricalcolaValori(CorpoCeleste ic) {
         if (ic != null) {
@@ -158,13 +158,11 @@ public class Calcolatore {
                 } else {
                     d2_max = d2_min = Math.abs(Calcolatore.calcolaDistanza(main, ic2));
                 }
-
                 if (d2_min < d1_max && (d2_max < d1_min || d1_min < d2_max)) {
                     return (d1_min - d2_max) < 0;
                 } else if (d1_min < d2_max && (d1_max < d2_min || d2_min < d1_max)) {
                     return (d2_min - d1_max) < 0;
                 }
-
                 return Math.abs(d1_min - d2_min) < THRESHOLD;
             }
         }

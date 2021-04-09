@@ -6,10 +6,11 @@
 package planetarium.input.menu.utili;
 
 /**
+ * Semplice rappresentazione di una coppia.
  *
  * @author TTT
- * @param <K>
- * @param <V>
+ * @param <K> Chive
+ * @param <V> Valore
  */
 public class Coppia<K, V> {
 

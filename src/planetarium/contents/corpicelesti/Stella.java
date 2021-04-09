@@ -92,7 +92,7 @@ public class Stella extends ElementoRegistrabile implements CorpoCeleste {
      * @param nome nome della stella
      * @param massa massa della stella
      * @param pos posizione della stella
-     * @return
+     * @return L'istanza della stella
      */
     public static Stella generateIstance(String nome, double massa, Posizione pos) {
         if (istance == null) {

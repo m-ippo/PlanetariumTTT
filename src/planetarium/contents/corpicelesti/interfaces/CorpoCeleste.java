@@ -5,6 +5,7 @@ import planetarium.contents.corpicelesti.enums.TipiCorpiCelesti;
 import planetarium.contents.registro.Registro;
 import planetarium.contents.registro.abstracts.ElementoRegistrabile;
 import planetarium.contents.registro.eventi.EventoRegistro;
+import planetarium.contents.system.posizione.Griglia;
 import planetarium.contents.system.posizione.Posizione;
 import planetarium.contents.system.questionable.interfaces.SupportoCalcoli;
 import planetarium.contents.system.questionable.interfaces.SupportoQuery;
@@ -38,7 +39,7 @@ public interface CorpoCeleste extends SupportoCalcoli, SupportoQuery {
     /**
      * Ritorna tutti gli elementi che orbitano intorno a questo corpo celeste.
      *
-     * @return
+     * @return Lista di corpi celesti
      */
     public List<CorpoCeleste> getOrbita();
 
@@ -116,7 +117,7 @@ public interface CorpoCeleste extends SupportoCalcoli, SupportoQuery {
      * Aggiorna la posizione assoluta del corpo celeste.
      *
      * @param p La posizione assoluta (con riferimento allo zero assoluto di
-     * {@link Grid}).
+     * {@link Griglia}).
      */
     public void aggiornaPosizione(Posizione p);
 

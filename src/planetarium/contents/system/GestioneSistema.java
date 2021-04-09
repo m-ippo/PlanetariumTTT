@@ -136,7 +136,7 @@ public class GestioneSistema {
     /**
      * Restituisce il nome assegnato a questo sistema.
      *
-     * @return
+     * @return Il nome
      */
     public String getNome() {
         return nome;
@@ -145,7 +145,7 @@ public class GestioneSistema {
     /**
      * Restituisce la stella di questo sistema.
      *
-     * @return
+     * @return L'unica stella del sistema
      */
     public Stella getUnica_Stella() {
         return unica_stella;
@@ -154,7 +154,7 @@ public class GestioneSistema {
     /**
      * Restituisce una posizione casuale nel sistema.
      *
-     * @return
+     * @return Una posizione casuale
      */
     public static Posizione getPosizioneCasuale() {
         return sistema_coordinate.getPosizioneLiberaCasuale();

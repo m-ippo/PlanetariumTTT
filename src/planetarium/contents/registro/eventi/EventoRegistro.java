@@ -23,14 +23,15 @@ public final class EventoRegistro {
         listeners = new ArrayList<>();
     }
 
+    public static EventoRegistro getIstance() {
+        return re;
+    }
+
     /**
      * Restituisce l'unica istanza di questa classe.
      *
      * @return L'istanza di questa classe.
      */
-    public static EventoRegistro getIstance() {
-        return re;
-    }
 
     /**
      * Aggiungi un {@link ListenerRegistro}.

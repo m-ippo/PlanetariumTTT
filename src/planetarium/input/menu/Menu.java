@@ -6,6 +6,7 @@ import planetarium.contents.system.GestioneSistema;
 import planetarium.contents.system.utils.OutputPicker;
 import planetarium.input.Formattazione;
 import planetarium.input.GestioneInput;
+import planetarium.input.InputDomande;
 import planetarium.input.InputOggetti;
 import planetarium.input.menu.utili.Coppia;
 import planetarium.input.menu.utili.FuturaAzioneMenu;
@@ -44,16 +45,27 @@ public class Menu {
             menu.add(new Coppia<>("Crea il sistema ", () -> {
                 GestioneSistema lgs = InputOggetti.leggiGestioneSistema();
                 if (lgs != null) {
-                    aggiungiOpzioniBase();
                     esegui_dopo_menu.add(() -> {
                         menu.remove(2);
                     });
+                    aggiungiOpzioniBase();
+
                 }
             }));
         }
     }
 
     private void aggiungiOpzioniBase() {
+        menu.add(new Coppia<>("Mostra registro", () -> {
+            Formattazione.printOut("Registro: ", true, false);
+            Formattazione.incrementaIndentazioni();
+            Registro.stampaRegistro();
+            Formattazione.decrementaIndentazioni();
+        }));
+        menu.add(new Coppia<>("Mostra sistema", () -> {
+            TreeSystem ts = new TreeSystem();
+            ts.printTree();
+        }));
         menu.add(new Coppia<>("Inserisci un corpo celeste", () -> {
             CorpoCeleste cc = InputOggetti.leggiCorpoCeleste();
             if (cc != null) {
@@ -64,7 +76,7 @@ public class Menu {
             }
         }));
         menu.add(new Coppia<>("Rimuovi corpo celeste", () -> {
-            CorpoCeleste rimuovi = InputOggetti.ricercaCorpoCeleste();
+            CorpoCeleste rimuovi = InputDomande.ricercaCorpoCeleste();
             if (rimuovi != null) {
                 Boolean risposta = GestioneInput.leggiBoolean("Sei sicuro di voler eliminare \"" + rimuovi.toString() + "\"? (Tutti i corpi sulle sue orbite verranno eliminati) ");
                 if (risposta) {
@@ -80,32 +92,23 @@ public class Menu {
         }));
 
         menu.add(new Coppia<>("Mostra luna di un pianeta ", () -> {
-            InputOggetti.stampaLune();
+            InputDomande.stampaLune();
         }));
         menu.add(new Coppia<>("Visualizza gerarchia corpo celeste ", () -> {
-            InputOggetti.gerarchia();
+            InputDomande.gerarchia();
         }));
         menu.add(new Coppia<>("Visualizza percorso tra due punti ", () -> {
-            InputOggetti.percorso();
+            InputDomande.percorso();
         }));
-        menu.add(new Coppia<>("Mostra registro", () -> {
-            Formattazione.printOut("Registro: ", true, false);
-            Formattazione.incrementaIndentazioni();
-            Registro.stampaRegistro();
-            Formattazione.decrementaIndentazioni();
-        }));
-        menu.add(new Coppia<>("Mostra sistema", () -> {
-            TreeSystem ts = new TreeSystem();
-            ts.printTree();
-        }));
+
         menu.add(new Coppia<>("Trova corpo celeste", () -> {
-            InputOggetti.mostraCC();
+            InputDomande.mostraCC();
         }));
         menu.add(new Coppia<>("Calcola somma delle masse e somma pesata delle posizioni", () -> {
-            InputOggetti.calcolaMassa();
+            InputDomande.calcolaMassa();
         }));
         menu.add(new Coppia<>("Calcola collisioni ", () -> {
-            InputOggetti.controllaCollisioni();
+            InputDomande.controllaCollisioni();
         }));
     }
 

@@ -1,10 +1,5 @@
 package planetarium;
 
-import planetarium.contents.corpicelesti.Luna;
-import planetarium.contents.corpicelesti.Pianeta;
-import planetarium.contents.corpicelesti.Stella;
-import planetarium.contents.system.GestioneSistema;
-import planetarium.contents.system.posizione.Posizione;
 import planetarium.input.menu.Menu;
 
 /**
@@ -13,7 +8,7 @@ import planetarium.input.menu.Menu;
 public class PlanetariumMain {
 
     public static void main(String[] args) {
-        Stella.generateIstance("Stella", 30, new Posizione(0, 0));
+        /*Stella.generateIstance("Stella", 30, new Posizione(0, 0));
         GestioneSistema gs = GestioneSistema.getIstance(null);
         Pianeta pianeta1 = new Pianeta("Pianeta1", 5, new Posizione(0, -3));
         Pianeta pianeta2 = new Pianeta("Pianeta2", 7, new Posizione(3, 3));
@@ -25,7 +20,7 @@ public class PlanetariumMain {
         gs.aggiungiElementoA(null, pianeta2, true);
         gs.aggiungiElementoA(pianeta1, luna1, true);
         gs.aggiungiElementoA(pianeta2, luna2, true);
-        gs.aggiungiElementoA(pianeta2, luna3, true);
+        gs.aggiungiElementoA(pianeta2, luna3, true);*/
 
         Menu nuovoMenu = new Menu();
         nuovoMenu.stampaMenu();

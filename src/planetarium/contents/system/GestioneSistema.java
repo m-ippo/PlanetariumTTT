@@ -175,4 +175,21 @@ public class GestioneSistema {
         return sistema_coordinate;
     }
 
+    public boolean massimoRaggiunto(CorpoCeleste ic) {
+        if (ic == null) {
+            return Stella.getIstance().getOrbita().size() >= 26000;
+        }
+        switch (ic.getTipo()) {
+            default:
+            case LUNA:
+            case SISTEMA:
+            case MORTE_NERA:
+                return true;
+            case STELLA:
+                return ic.getOrbita().size() >= 26000;
+            case PIANETA:
+                return ic.getOrbita().size() >= 5000;
+        }
+    }
+
 }

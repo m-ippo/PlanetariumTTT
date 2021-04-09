@@ -5,8 +5,8 @@
  */
 package planetarium.contents.system.utils;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
@@ -24,8 +24,8 @@ public class AudioPlayer {
 
     public void playAudioJoined(String p) {
         try {
-            String s = getClass().getClassLoader().getResource(p).getFile();
-            AudioInputStream stream = AudioSystem.getAudioInputStream(new File(s));
+            InputStream s = getClass().getResourceAsStream(p);
+            AudioInputStream stream = AudioSystem.getAudioInputStream(s);
             Clip clip = (Clip) AudioSystem.getLine(new DataLine.Info(Clip.class, stream.getFormat()));
             clip.open(stream);
             clip.start();

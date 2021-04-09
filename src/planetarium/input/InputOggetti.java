@@ -5,8 +5,10 @@ import planetarium.contents.corpicelesti.Pianeta;
 import planetarium.contents.corpicelesti.Stella;
 import planetarium.contents.corpicelesti.enums.TipiCorpiCelesti;
 import planetarium.contents.corpicelesti.interfaces.CorpoCeleste;
+import planetarium.contents.custom.corpicelesti.MorteNera;
 import planetarium.contents.system.GestioneSistema;
 import planetarium.contents.system.posizione.Posizione;
+import planetarium.contents.system.utils.OutputPicker;
 
 public class InputOggetti {
 
@@ -74,7 +76,11 @@ public class InputOggetti {
                 case 1:
                     CorpoCeleste pianeta = leggiPianeta();
                     Formattazione.incrementaIndentazioni();
-                    gs.aggiungiElementoA(null, pianeta, GestioneInput.leggiBoolean("Le coordinate sono assolute? "));
+                    if (!gs.massimoRaggiunto(null)) {
+                        gs.aggiungiElementoA(null, pianeta, GestioneInput.leggiBoolean("Le coordinate sono assolute? "));
+                    } else {
+                        Formattazione.printOut("Limite massimo di pianeti raggiunti per " + Stella.getIstance().toString(), true, true);
+                    }
                     Formattazione.decrementaIndentazioni();
                     Formattazione.decrementaIndentazioni();
                     Formattazione.decrementaIndentazioni();
@@ -87,7 +93,11 @@ public class InputOggetti {
                         CorpoCeleste padre = InputDomande.ricercaCorpoCeleste();
                         Formattazione.incrementaIndentazioni();
                         if (padre != null && padre.getTipo() == TipiCorpiCelesti.PIANETA) {
-                            gs.aggiungiElementoA(padre, luna, GestioneInput.leggiBoolean("Le coordinate sono assolute? "));
+                            if (!gs.massimoRaggiunto(padre)) {
+                                gs.aggiungiElementoA(padre, luna, GestioneInput.leggiBoolean("Le coordinate sono assolute? "));
+                            } else {
+                                Formattazione.printOut("Limite massimo di lune raggiunti per " + padre.toString(), true, true);
+                            }
                             Formattazione.decrementaIndentazioni();
                             Formattazione.decrementaIndentazioni();
                             Formattazione.decrementaIndentazioni();
@@ -118,6 +128,62 @@ public class InputOggetti {
             return null;
         }
 
+    }
+
+    private static boolean isDS_Enabled = false;
+
+    public static void gestisceMorteNera() {
+        GestioneSistema gs = GestioneSistema.getIstance();
+        if (gs != null) {
+            if (!isDS_Enabled) {
+                Formattazione.printOut("Abilita l'utilizzo della Morte Nera.", true, false);
+                Formattazione.incrementaIndentazioni();
+                Formattazione.printOut("Scegli il pianeta intorno a cui orbitare e la posizione:", true, false);
+                CorpoCeleste ic = InputDomande.ricercaCorpoCeleste();
+                if (ic != null && ic.getTipo() == TipiCorpiCelesti.PIANETA) {
+                    Posizione p = leggiPosizione();
+                    Boolean b = GestioneInput.leggiBoolean("La posizione è assoluta? (relativa allo 0 del sistema, altrimenti relativa al corpo celeste padre) ");
+                    MorteNera.getIstance().aggiornaPosizione(p);
+                    gs.aggiungiElementoA(ic, MorteNera.getIstance(), b);
+                    isDS_Enabled = true;
+                    Formattazione.decrementaIndentazioni();
+                    Formattazione.printOut("La Morte Nera è ora nel sistema.", true, false);
+                } else {
+                    Formattazione.decrementaIndentazioni();
+                }
+            } else {
+                Formattazione.printOut("Scegli come comandare la stazione spaziale.", true, false);
+                Formattazione.incrementaIndentazioni();
+                Formattazione.printOut("[1] Cambia posizione.", true, false);
+                Formattazione.printOut("[2] Distruggi pianeta", true, false);
+                Formattazione.printOut("Inserire il numero corrispettivo all'operazione desiderato (oppure * per annullare):", true, false);
+                Formattazione.incrementaIndentazioni();
+                Integer op;
+                do {
+                    op = GestioneInput.leggiInteger("Operazione :");
+                } while (op != 1 && op != 2);
+                switch (op) {
+                    case 1:
+                        Formattazione.printOut("Aggiorna la posizione:", true, false);
+                        Posizione p = leggiPosizione();
+                        MorteNera.getIstance().aggiornaPosizione(p);
+                        Formattazione.decrementaIndentazioni();
+                        Formattazione.decrementaIndentazioni();
+                        break;
+                    case 2:
+                        Formattazione.printOut("Scegli il corpo celeste da distruggere:", true, false);
+                        CorpoCeleste ic = InputDomande.ricercaCorpoCeleste();
+                        if (ic != null && ic != MorteNera.getIstance()) {
+                            MorteNera.getIstance().toDeath(ic);
+                            Formattazione.decrementaIndentazioni();
+                            Formattazione.decrementaIndentazioni();
+                            System.out.println("\n\n");
+                            Formattazione.printOut(OutputPicker.getIstance().getOnDelete(), true, false);
+                        }
+                        break;
+                }
+            }
+        }
     }
 
 }

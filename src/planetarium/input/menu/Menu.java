@@ -21,6 +21,9 @@ public class Menu {
     private final ArrayList<Coppia<String, FuturaAzioneMenu>> menu;
     private final ArrayList<FuturaAzioneMenu> esegui_dopo_menu;
 
+    private boolean death_star_unlocked = false;
+    private int death_star_pos = -1;
+
     public Menu() {
         this.menu = new ArrayList<>();
         this.esegui_dopo_menu = new ArrayList<>();
@@ -30,6 +33,8 @@ public class Menu {
     private void init() {
         menu.clear();
         esegui_dopo_menu.clear();
+        death_star_pos = -1;
+        death_star_unlocked = false;
         Formattazione.printOut("\t\tBENVENUTO NEL PLANETARIUM!", true, false);
         Formattazione.incrementaIndentazioni();
         menu.add(new Coppia<>("Esci", () -> {
@@ -47,35 +52,42 @@ public class Menu {
                 if (lgs != null) {
                     esegui_dopo_menu.add(() -> {
                         menu.remove(2);
+                        aggiungiOpzioniBase();
                     });
-                    aggiungiOpzioniBase();
-
                 }
             }));
         }
     }
 
     private void aggiungiOpzioniBase() {
-        menu.add(new Coppia<>("Mostra registro", () -> {
+        aggiungiOpzione("Mostra registro", () -> {
             Formattazione.printOut("Registro: ", true, false);
             Formattazione.incrementaIndentazioni();
             Registro.stampaRegistro();
             Formattazione.decrementaIndentazioni();
-        }));
-        menu.add(new Coppia<>("Mostra sistema", () -> {
+        });
+        aggiungiOpzione("Mostra sistema", () -> {
             TreeSystem ts = new TreeSystem();
             ts.printTree();
-        }));
-        menu.add(new Coppia<>("Inserisci un corpo celeste", () -> {
+        });
+        aggiungiOpzione("Inserisci un corpo celeste", () -> {
             CorpoCeleste cc = InputOggetti.leggiCorpoCeleste();
             if (cc != null) {
                 Formattazione.printOut("Corpo registrato correttamente ", true, false);
                 Formattazione.printOut(OutputPicker.getIstance().getOnCreate(), true, false);
+                if (!death_star_unlocked && cc.getTipo() == TipiCorpiCelesti.LUNA) {
+                    System.err.println("Obiettivo sbloccato: Morte Nera!");
+                    death_star_unlocked = true;
+                    death_star_pos = menu.size();
+                    aggiungiOpzione("Morte Nera", () -> {
+                        InputOggetti.gestisceMorteNera();
+                    });
+                }
             } else {
                 Formattazione.printOut("Errore nella registrazione ", true, true);
             }
-        }));
-        menu.add(new Coppia<>("Rimuovi corpo celeste", () -> {
+        });
+        aggiungiOpzione("Rimuovi corpo celeste", () -> {
             CorpoCeleste rimuovi = InputDomande.ricercaCorpoCeleste();
             if (rimuovi != null) {
                 Boolean risposta = GestioneInput.leggiBoolean("Sei sicuro di voler eliminare \"" + rimuovi.toString() + "\"? (Tutti i corpi sulle sue orbite verranno eliminati) ");
@@ -83,33 +95,48 @@ public class Menu {
                     rimuovi.distruggi();
                     Formattazione.printOut(rimuovi.getNome() + " eliminato correttamente! ", true, false);
                     Formattazione.printOut(OutputPicker.getIstance().getOnDelete(), true, false);
-                    if (rimuovi.getTipo() == TipiCorpiCelesti.STELLA) {
-                        GestioneSistema.destroy();
-                        init();
+                    switch (rimuovi.getTipo()) {
+                        case STELLA:
+                            GestioneSistema.destroy();
+                            init();
+                            break;
+                        case MORTE_NERA:
+                            esegui_dopo_menu.add(() -> {
+                                menu.remove(death_star_pos);
+                            });
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
-        }));
+        });
 
-        menu.add(new Coppia<>("Mostra luna di un pianeta ", () -> {
+        aggiungiOpzione("Mostra luna di un pianeta ", () -> {
             InputDomande.stampaLune();
-        }));
-        menu.add(new Coppia<>("Visualizza gerarchia corpo celeste ", () -> {
+        });
+        aggiungiOpzione("Visualizza gerarchia corpo celeste ", () -> {
             InputDomande.gerarchia();
-        }));
-        menu.add(new Coppia<>("Visualizza percorso tra due punti ", () -> {
+        });
+        aggiungiOpzione("Visualizza percorso tra due punti ", () -> {
             InputDomande.percorso();
-        }));
+        });
 
-        menu.add(new Coppia<>("Trova corpo celeste", () -> {
+        aggiungiOpzione("Trova corpo celeste", () -> {
             InputDomande.mostraCC();
-        }));
-        menu.add(new Coppia<>("Calcola somma delle masse e somma pesata delle posizioni", () -> {
+        });
+        aggiungiOpzione("Calcola somma delle masse e somma pesata delle posizioni", () -> {
             InputDomande.calcolaMassa();
-        }));
-        menu.add(new Coppia<>("Calcola collisioni ", () -> {
+        });
+        aggiungiOpzione("Calcola collisioni ", () -> {
             InputDomande.controllaCollisioni();
-        }));
+        });
+    }
+
+    public void aggiungiOpzione(String voce, FuturaAzioneMenu azione) {
+        if (voce != null && azione != null) {
+            menu.add(new Coppia<>(voce, azione));
+        }
     }
 
     public void stampaMenu() {

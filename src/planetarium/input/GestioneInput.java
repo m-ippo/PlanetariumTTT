@@ -8,7 +8,7 @@ public class GestioneInput {
 
     private static final Scanner input = new Scanner(System.in);
 
-    public static Double leggiDouble(String messaggio) {
+    public static Double leggiDouble(String messaggio, boolean solo_positivo) {
         Double valoreLetto = null;
         boolean corretto = false;
         Formattazione.printOut(messaggio, false, false);
@@ -16,7 +16,16 @@ public class GestioneInput {
         while (!corretto) {
             try {
                 valoreLetto = input.nextDouble();
-                corretto = true;
+                if (solo_positivo) {
+                    if (valoreLetto >= 0) {
+                        corretto = true;
+                    } else {
+                        input.nextLine();
+                        Formattazione.printOut("Errore, il valore non può essere negativo! " + messaggio, false, true);
+                    }
+                } else {
+                    corretto = true;
+                }
             } catch (InputMismatchException ime) {
                 input.nextLine();
                 Formattazione.printOut("Errore! " + messaggio, false, true);

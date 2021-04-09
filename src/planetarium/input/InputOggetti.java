@@ -7,16 +7,14 @@ import planetarium.contents.corpicelesti.enums.TipiCorpiCelesti;
 import planetarium.contents.corpicelesti.interfaces.CorpoCeleste;
 import planetarium.contents.system.GestioneSistema;
 import planetarium.contents.system.posizione.Posizione;
-import planetarium.contents.system.questionable.Calcolatore;
-import planetarium.contents.system.questionable.Interrogabile;
 
 public class InputOggetti {
 
     public static Posizione leggiPosizione() {
         Formattazione.printOut("Inserisci posizione", true, false);
         Formattazione.incrementaIndentazioni();
-        Double x = GestioneInput.leggiDouble("X: ");
-        Double y = GestioneInput.leggiDouble("Y: ");
+        Double x = GestioneInput.leggiDouble("X: ", false);
+        Double y = GestioneInput.leggiDouble("Y: ", false);
         Formattazione.decrementaIndentazioni();
         return new Posizione(x, y);
     }
@@ -25,7 +23,7 @@ public class InputOggetti {
         Formattazione.printOut("Registra nuovo pianeta: ", true, false);
         Formattazione.incrementaIndentazioni();
         String nome = GestioneInput.leggiString("Inserisci il nome: ", true);
-        Double massa = GestioneInput.leggiDouble("Inserisci la Massa: ");
+        Double massa = GestioneInput.leggiDouble("Inserisci la Massa: ", true);
         Posizione posizione = leggiPosizione();
         Formattazione.decrementaIndentazioni();
         return new Pianeta(nome, massa, posizione);
@@ -35,7 +33,7 @@ public class InputOggetti {
         Formattazione.printOut("Registra nuova luna: ", true, false);
         Formattazione.incrementaIndentazioni();
         String nome = GestioneInput.leggiString("Inserisci il nome: ", true);
-        Double massa = GestioneInput.leggiDouble("Inserisci la Massa: ");
+        Double massa = GestioneInput.leggiDouble("Inserisci la Massa: ", true);
         Posizione posizione = leggiPosizione();
         Formattazione.decrementaIndentazioni();
         return new Luna(nome, massa, posizione);
@@ -45,7 +43,7 @@ public class InputOggetti {
         Formattazione.printOut("Registra la stella: ", true, false);
         Formattazione.incrementaIndentazioni();
         String nome = GestioneInput.leggiString("Inserisci il nome: ", true);
-        Double massa = GestioneInput.leggiDouble("Inserisci la Massa: ");
+        Double massa = GestioneInput.leggiDouble("Inserisci la Massa: ", true);
         Posizione posizione = leggiPosizione();
         Formattazione.decrementaIndentazioni();
         return Stella.generateIstance(nome, massa, posizione);
